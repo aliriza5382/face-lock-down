@@ -13,7 +13,7 @@ known_image = face_recognition.load_image_file(
 )
 known_encodings = face_recognition.face_encodings(known_image)
 if not known_encodings:
-    print("'ali_riza.jpg' dosyasında yüz bulunamadı.")
+    print("'ali_riza.jpeg' dosyasında yüz bulunamadı.")
     exit()
 known_face_encoding = known_encodings[0]
 
