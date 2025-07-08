@@ -7,29 +7,29 @@ import threading
 import face_recognition
 import cv2
 
-# 📥 Tanınacak yüz verisi
+# Tanınacak yüz verisi
 known_image = face_recognition.load_image_file(
     r"C:\Users\ALI RIZA SAHIN\PycharmProjects\pythonProject21\ali_riza.jpg"
 )
 known_encodings = face_recognition.face_encodings(known_image)
 if not known_encodings:
-    print("❌ 'ali_riza.jpg' dosyasında yüz bulunamadı.")
+    print("'ali_riza.jpg' dosyasında yüz bulunamadı.")
     exit()
 known_face_encoding = known_encodings[0]
 
-# ❌ Pencereyi kapatma girişimi: onay sor
+# Pencereyi kapatma girişimi: onay sor
 def on_close():
     cevap = messagebox.askyesno(
         "Çıkmak üzeresiniz",
         "Bu ekranı kapatırsanız bilgisayar kapatılacak. Emin misiniz?"
     )
     if cevap:
-        print("❌ Çarpıya basıldı ve onaylandı. Bilgisayar kapatılıyor...")
+        print("Çarpıya basıldı ve onaylandı. Bilgisayar kapatılıyor...")
         subprocess.call("shutdown /s /t 0", shell=True)
 
-# 🧠 Yüz tanıma
+# Yüz tanıma
 def yuz_tanima(root):
-    print("📸 Kamera başlatılıyor...")
+    print("Kamera başlatılıyor...")
     cap = cv2.VideoCapture(0)
     access_granted = False
     timeout = time.time() + 15  # 15 saniye içinde yüz tanınmalı
@@ -50,14 +50,14 @@ def yuz_tanima(root):
                     access_granted = True
                     break
         if access_granted:
-            print("✅ Yüz tanındı. Giriş izni verildi.")
+            print("Yüz tanındı. Giriş izni verildi.")
             break
 
     cap.release()
     if access_granted:
         root.after(0, root.destroy)
     else:
-        print("🔴 Yüz tanınmadı. Bilgisayar kapatılıyor...")
+        print("Yüz tanınmadı. Bilgisayar kapatılıyor...")
         root.after(0, lambda: subprocess.call("shutdown /s /t 0", shell=True))
 
 # ⌨️ Tuş kombinasyonu dinleyici
@@ -68,24 +68,24 @@ def kombinasyon_dinle(root, timeout=30):
         if (keyboard.is_pressed('ctrl') and
             keyboard.is_pressed('shift') and
             keyboard.is_pressed('caps lock')):
-            print("🟢 Tuş kombinasyonu algılandı.")
+            print("Tuş kombinasyonu algılandı.")
             yuz_tanima(root)
             return
         time.sleep(0.1)
-    print("🔴 Tuş kombinasyonu algılanmadı. Bilgisayar kapatılıyor...")
+    print("Tuş kombinasyonu algılanmadı. Bilgisayar kapatılıyor...")
     root.after(0, lambda: subprocess.call("shutdown /s /t 0", shell=True))
 
-# ⛔ Ctrl+Esc dinleyici (güvenlik için)
+# Ctrl+Esc dinleyici (güvenlik için)
 def ctrl_esc_dinle():
-    print("🔒 Ctrl+Esc dinleniyor...")
+    print("Ctrl+Esc dinleniyor...")
     while True:
         if keyboard.is_pressed('ctrl') and keyboard.is_pressed('esc'):
-            print("❌ Ctrl+Esc algılandı. Bilgisayar kapatılıyor...")
+            print("Ctrl+Esc algılandı. Bilgisayar kapatılıyor...")
             subprocess.call("shutdown /s /t 0", shell=True)
             break
         time.sleep(0.1)
 
-# 🖥️ Tam ekran GUI
+# Tam ekran GUI
 root = tk.Tk()
 root.title("Erişim Kısıtlandı")
 root.configure(bg='black')
@@ -93,10 +93,10 @@ root.attributes('-fullscreen', True)
 root.attributes('-topmost', True)
 root.protocol("WM_DELETE_WINDOW", on_close)
 
-# 🔁 Kombinasyon kontrolü başlat
+# Kombinasyon kontrolü başlat
 threading.Thread(target=kombinasyon_dinle, args=(root,), daemon=True).start()
-# 🔁 Ctrl+Esc kombinasyonu için ek dinleyici başlat
+# Ctrl+Esc kombinasyonu için ek dinleyici başlat
 threading.Thread(target=ctrl_esc_dinle, daemon=True).start()
 
-# ▶️ Başlat
+# Başlat
 root.mainloop()
