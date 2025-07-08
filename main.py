@@ -9,7 +9,7 @@ import cv2
 
 # Tanınacak yüz verisi
 known_image = face_recognition.load_image_file(
-    r"C:\Users\ALI RIZA SAHIN\PycharmProjects\pythonProject21\ali_riza.jpg"
+    r"C:\Users\ALI RIZA SAHIN\PycharmProjects\pythonProject21\ali_riza.jpeg"
 )
 known_encodings = face_recognition.face_encodings(known_image)
 if not known_encodings:
@@ -62,7 +62,7 @@ def yuz_tanima(root):
 
 # ⌨️ Tuş kombinasyonu dinleyici
 def kombinasyon_dinle(root, timeout=30):
-    print(f"⌛ {timeout} saniye içinde CTRL + SHIFT + CAPSLOCK kombinasyonuna basılmalı...")
+    print(f"{timeout} saniye içinde CTRL + SHIFT + CAPSLOCK kombinasyonuna basılmalı...")
     end_time = time.time() + timeout
     while time.time() < end_time:
         if (keyboard.is_pressed('ctrl') and
