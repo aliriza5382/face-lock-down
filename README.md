@@ -21,4 +21,4 @@
 Her türlü geri bildirim veya öneri için:
 
 E-posta: [sahinaliriza888@gmail.com](mailto:sahinaliriza888@gmail.com)  
-GitHub: [github.com/aliriza5382](https://github.com/aliriza5382)
+LinkedIn: https://www.linkedin.com/in/ali-r%C4%B1za-%C5%9Fahin-510026255/
